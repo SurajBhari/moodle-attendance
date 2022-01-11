@@ -48,7 +48,7 @@ for link in links:
             title= "Failed, No Button Present./Already done."
             )
         embed.add_field(name="Class Name", value=class_name)
-        webhook.send(content= me_mention, embed=embed)
+        webhook.send(content= content, embed=embed)
         continue
 
     submit_btn.click()
@@ -64,4 +64,4 @@ for link in links:
         title= "Success"
     )
     embed.add_field(name="Class Name", value=class_name)
-    webhook.send(content= me_mention, embed=embed)
+    webhook.send(content= content, embed=embed)
