@@ -1,0 +1,8 @@
+{
+    "username" : "",
+    "password" : "",
+    "webhook_url" : "https://discord.com/api/webhooks/",
+    "base_link" : "http://example.com/moodle",
+    "content" : ""
+
+}
