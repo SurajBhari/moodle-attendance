@@ -1,9 +1,14 @@
 # moodle-attendance
 Basically goes to your moodle install.
-Logs in
-Go to Calender
-check todays event
-take all the events which requires attendance
+
+Logs in 
+
+Go to Calender 
+
+check todays event 
+
+take all the events which requires attendance 
+
 marks your own attendance.
 
 # How to Use ? 
