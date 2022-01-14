@@ -20,7 +20,7 @@ content = creds["content"]
 webhook_url = creds["webhook_url"]
 username = creds["username"]
 password = creds["password"]
-todays_date = datetime.datetime.now().date("%Y,%m,%d")
+todays_date = datetime.datetime.now().date().strftime("%Y,%m,%d")
 
 driver.get(f"{base_link}/login/index.php")
 usr_entry = driver.find_element_by_id("username")
