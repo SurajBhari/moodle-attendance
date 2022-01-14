@@ -1,12 +1,17 @@
 from os import link
+from pydoc import importfile
 from selenium import webdriver
 from selenium.common import exceptions 
 from discord import Webhook, RequestsWebhookAdapter, Embed
 from json import load
 from time import sleep
+import datetime
 
 with open("creds.json", "r") as f:
     creds = load(f)
+
+with open("logs.json", "r") as f:
+    old_logs = load(f)
 
 
 driver = webdriver.Firefox()
@@ -15,6 +20,7 @@ content = creds["content"]
 webhook_url = creds["webhook_url"]
 username = creds["username"]
 password = creds["password"]
+todays_date = datetime.datetime.now().date("%Y,%m,%d")
 
 driver.get(f"{base_link}/login/index.php")
 usr_entry = driver.find_element_by_id("username")
@@ -40,6 +46,9 @@ for link in links:
     driver.get(link)
     sleep(5)
     class_name = driver.find_element_by_class_name("page-header-headings").text
+    log_to_pass = {"id":username, "date": todays_date, "class": class_name}
+    if log_to_pass in old_logs["logs"]:
+        continue
 
     try:
         submit_btn = driver.find_element_by_xpath("// a[contains(text(),'Submit attendance')]")
@@ -52,6 +61,7 @@ for link in links:
         embed.add_field(name="Class Name", value=class_name)
         embed.add_field(name="Student ID", value=username)
         webhook.send(content= content, embed=embed)
+        #old_logs["logs"].append(log_to_pass) # Don't push if it fails to get one. in future may get one.
         continue
 
     submit_btn.click()
@@ -69,3 +79,4 @@ for link in links:
     embed.add_field(name="Class Name", value=class_name)
     embed.add_field(name="Student ID", value=username)
     webhook.send(content= content, embed=embed)
+    old_logs["logs"].append(log_to_pass)
