@@ -1,5 +1,4 @@
 from os import link
-from pydoc import importfile
 from selenium import webdriver
 from selenium.common import exceptions 
 from discord import Webhook, RequestsWebhookAdapter, Embed
