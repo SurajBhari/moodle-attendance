@@ -13,6 +13,8 @@ driver = webdriver.Firefox()
 base_link = creds["base_link"]
 content = creds["content"]
 webhook_url = creds["webhook_url"]
+username = creds["username"]
+password = creds["password"]
 
 driver.get(f"{base_link}/login/index.php")
 usr_entry = driver.find_element_by_id("username")
@@ -20,8 +22,8 @@ pass_entry = driver.find_element_by_id("password")
 loginbtn = driver.find_element_by_id("loginbtn")
 
 
-usr_entry.send_keys(creds["username"])
-pass_entry.send_keys(creds["password"])
+usr_entry.send_keys(username)
+pass_entry.send_keys(password)
 loginbtn.click()
 sleep(5)
 
@@ -48,11 +50,12 @@ for link in links:
             title= "Failed, No Button Present./Already done."
             )
         embed.add_field(name="Class Name", value=class_name)
+        embed.add_field(name="Student ID", value=username)
         webhook.send(content= content, embed=embed)
         continue
 
     submit_btn.click()
-    driver.find_element_by_id("id_status_177").click()
+    driver.find_elements_by_class_name("form-check-input")[0].click()
     sleep(1)
     driver.find_element_by_id("id_submitbutton").click()
     sleep(1)
@@ -64,4 +67,5 @@ for link in links:
         title= "Success"
     )
     embed.add_field(name="Class Name", value=class_name)
+    embed.add_field(name="Student ID", value=username)
     webhook.send(content= content, embed=embed)
