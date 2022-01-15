@@ -2,7 +2,7 @@ from os import link
 from selenium import webdriver
 from selenium.common import exceptions 
 from discord import Webhook, RequestsWebhookAdapter, Embed
-from json import load
+from json import load, dump
 from time import sleep
 import datetime
 
@@ -79,3 +79,5 @@ for link in links:
     embed.add_field(name="Student ID", value=username)
     webhook.send(content= content, embed=embed)
     old_logs["logs"].append(log_to_pass)
+    with open("logs.json", "w+") as f:
+        dump(old_logs, f, indent=4)
