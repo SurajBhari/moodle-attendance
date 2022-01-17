@@ -11,6 +11,10 @@ take all the events which requires attendance
 
 marks your own attendance.
 
+Log out and logs the classes
+
+move to other account if exists
+
 # How to Use ? 
 
 1. Must have Geckodriver in environmental variable.
