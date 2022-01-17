@@ -91,6 +91,8 @@ for credss in creds["creds"]:
     driver.find_element_by_class_name("userbutton").click()
     driver.find_element_by_id("actionmenuaction-6").click()
 
-    
+
 with open("logs.json", "w+") as f:
     dump(old_logs, f, indent=4)
+
+driver.close() # Why not save some memory?
