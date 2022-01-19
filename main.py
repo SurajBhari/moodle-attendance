@@ -17,9 +17,8 @@ with open("logs.json", "r") as f:
 options = Options()
 options.headless = True
 driver = webdriver.Firefox(options=options)
-base_link = creds["base_link"]
-content = creds["content"]
-webhook_url = creds["webhook_url"]
+
+
 
 todays_date_obj = datetime.datetime.now().date()
 todays_date = todays_date_obj.strftime("%Y,%m,%d")
@@ -30,6 +29,9 @@ if todays_date_obj.strftime("%A").lower() == "sunday":
 for credss in creds["creds"]:
     username = credss["username"]
     password = credss["password"]
+    base_link = credss["base_link"]
+    content = credss["content"]
+    webhook_url = credss["webhook_url"]
 
     driver.get(f"{base_link}/login/index.php")
     usr_entry = driver.find_element_by_id("username")
