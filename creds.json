@@ -1,15 +1,18 @@
 {
-    "webhook_url" : "",
-    "base_link" : "",
-    "content" : "Hello",
     "creds" : [
         {
             "username" : "",
-            "password" : ""
+            "password" : "",
+            "base_link": "",
+            "content" : "",
+            "webhook_url" : ""
         },
         {
             "username" : "",
-            "password" : ""
+            "password" : "",
+            "base_link": "",
+            "content" : "",
+            "webhook_url" : ""
         }
     ]
 }

@@ -1,6 +1,7 @@
 from os import link
 from selenium import webdriver
 from selenium.common import exceptions 
+from selenium.webdriver.firefox.options import Options
 from discord import Webhook, RequestsWebhookAdapter, Embed
 from json import load, dump
 from sys import exit
@@ -13,8 +14,9 @@ with open("creds.json", "r") as f:
 with open("logs.json", "r") as f:
     old_logs = load(f)
 
-
-driver = webdriver.Firefox()
+options = Options()
+options.headless = True
+driver = webdriver.Firefox(options=options)
 base_link = creds["base_link"]
 content = creds["content"]
 webhook_url = creds["webhook_url"]
