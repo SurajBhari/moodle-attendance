@@ -1,3 +1,4 @@
+from email.mime import base
 from os import link
 from selenium import webdriver
 from selenium.common import exceptions 
@@ -15,10 +16,15 @@ with open("logs.json", "r") as f:
     old_logs = load(f)
 
 options = Options()
+options.binary_location = r'/usr/bin/firefox' # When using crontab it may need firefox in a specific location. Comment this life if you are using this on windows.
 options.headless = True
 driver = webdriver.Firefox(options=options)
 
 
+""" # Disable this comment if you want it to complete action quickly (not recommended)
+def sleep(time:int):
+    pass
+"""
 
 todays_date_obj = datetime.datetime.now().date()
 todays_date = todays_date_obj.strftime("%Y,%m,%d")
@@ -53,6 +59,14 @@ for credss in creds["creds"]:
         if "attendance" in l: # Only care about link in which we have to give attendance 
             links.append(l)
 
+    webhook = Webhook.from_url(webhook_url, adapter=RequestsWebhookAdapter())
+    embed = Embed(
+        color = 0x0000ff,
+        title= "Bot Was runned."
+        )
+    embed.add_field(name="For", value=username)
+    webhook.send(content= content, embed=embed)
+    
     for link in links:
         driver.get(link)
         sleep(5)
@@ -71,7 +85,7 @@ for credss in creds["creds"]:
                 )
             embed.add_field(name="Class Name", value=class_name)
             embed.add_field(name="Student ID", value=username)
-            webhook.send(content= content, embed=embed)
+            webhook.send(embed=embed)
             #old_logs["logs"].append(log_to_pass) # Don't push if it fails to get one. in future may get one.
             continue
 
@@ -89,11 +103,11 @@ for credss in creds["creds"]:
         )
         embed.add_field(name="Class Name", value=class_name)
         embed.add_field(name="Student ID", value=username)
-        webhook.send(content= content, embed=embed)
+        webhook.send(embed=embed)
         old_logs["logs"].append(log_to_pass)
     # Log out now to move on to another account
-    driver.find_element_by_class_name("userbutton").click()
-    driver.find_element_by_id("actionmenuaction-6").click()
+    driver.get(f"{base_link}/login/logout.php")
+    driver.find_element_by_class_name("btn-primary").click()
 
 
 with open("logs.json", "w+") as f:
