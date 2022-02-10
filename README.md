@@ -15,6 +15,10 @@ Log out and logs the classes
 
 move to other account if exists
 
+# But But I don't have discord :c 
+I am currently working and maintaining discord branch(main) on top priority.
+If you don't have discord or other platform or just don't care to get the message you can check other branch for your own use.
+
 # How to Use ? 
 
 1. Must have Geckodriver in environmental variable.
