@@ -58,14 +58,15 @@ for credss in creds["creds"]:
         l = event.get_attribute('href')
         if "attendance" in l: # Only care about link in which we have to give attendance 
             links.append(l)
-
-    webhook = Webhook.from_url(webhook_url, adapter=RequestsWebhookAdapter())
-    embed = Embed(
-        color = 0x0000ff,
-        title= "Bot Was runned."
-        )
-    embed.add_field(name="For", value=username)
-    webhook.send(content= content, embed=embed)
+    
+    if links:
+        webhook = Webhook.from_url(webhook_url, adapter=RequestsWebhookAdapter())
+        embed = Embed(
+            color = 0x0000ff,
+            title= "Bot Was runned and found some classes."
+            )
+        embed.add_field(name="For", value=username)
+        webhook.send(content= content, embed=embed)
     
     for link in links:
         driver.get(link)
