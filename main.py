@@ -15,8 +15,8 @@ with open("logs.json", "r") as f:
     old_logs = load(f)
 
 options = Options()
-options.binary_location = r'/usr/bin/firefox' # When using crontab it may need firefox in a specific location. Comment this life if you are using this on windows.
-options.headless = True
+#options.binary_location = r'/usr/bin/firefox' # When using crontab it may need firefox in a specific location. Comment this life if you are using this on windows.
+options.headless = False #Since most of people are gonna use it on windows. you should see the process. if you don't to make this headless
 driver = webdriver.Firefox(options=options)
 
 
