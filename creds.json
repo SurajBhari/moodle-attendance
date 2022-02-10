@@ -4,12 +4,15 @@
             "username" : "",
             "password" : "",
             "base_link": "",
-            "content" : ""
+            "content" : "",
+            "webhook_url" : ""
         },
         {
             "username" : "",
             "password" : "",
-            "base_link": ""
+            "base_link": "",
+            "content" : "",
+            "webhook_url" : ""
         }
     ]
 }
