@@ -1,4 +1,3 @@
-from email.mime import base
 from os import link
 from selenium import webdriver
 from selenium.common import exceptions 
