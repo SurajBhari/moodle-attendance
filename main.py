@@ -59,13 +59,18 @@ for credss in creds["creds"]:
             links.append(l)
     
     if links:
-        webhook = Webhook.from_url(webhook_url, adapter=RequestsWebhookAdapter())
-        embed = Embed(
-            color = 0x0000ff,
-            title= "Bot Was runned and found some classes."
-            )
-        embed.add_field(name="For", value=username)
-        webhook.send(content= content, embed=embed)
+        counter = 0
+        for log in old_logs["logs"]:
+            if log["date"] == todays_date:
+                counter += 1
+        if counter != len(links):
+            webhook = Webhook.from_url(webhook_url, adapter=RequestsWebhookAdapter())
+            embed = Embed(
+                color = 0x0000ff,
+                title= f"Bot Was runned and found {len(links) - counter} classes."
+                )
+            embed.add_field(name="For", value=username)
+            webhook.send(content= content, embed=embed)
     
     for link in links:
         driver.get(link)
