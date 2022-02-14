@@ -68,7 +68,7 @@ for credss in creds["creds"]:
             webhook = Webhook.from_url(webhook_url, adapter=RequestsWebhookAdapter())
             embed = Embed(
                 color = 0x0000ff,
-                title= f"Bot Was runned and found {len(links) - counter} classes."
+                title= f"Bot Was runned and found some classes."
                 )
             embed.add_field(name="For", value=username)
             webhook.send(content= content, embed=embed)
