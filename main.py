@@ -15,6 +15,7 @@ with open("logs.json", "r") as f:
     old_logs = load(f)
 
 options = Options()
+message_sent = False
 #options.binary_location = r'/usr/bin/firefox' # When using crontab it may need firefox in a specific location. Comment this life if you are using this on windows.
 options.headless = False #Since most of people are gonna use it on windows. you should see the process. if you don't to make this headless
 driver = webdriver.Firefox(options=options)
@@ -28,8 +29,6 @@ def sleep(time:int):
 todays_date_obj = datetime.datetime.now().date()
 todays_date = todays_date_obj.strftime("%Y,%m,%d")
 
-if todays_date_obj.strftime("%A").lower() == "sunday":
-    exit()
 
 for credss in creds["creds"]:
     username = credss["username"]
@@ -57,21 +56,7 @@ for credss in creds["creds"]:
         l = event.get_attribute('href')
         if "attendance" in l: # Only care about link in which we have to give attendance 
             links.append(l)
-    
-    if links:
-        counter = 0
-        for log in old_logs["logs"]:
-            if log["date"] == todays_date:
-                counter += 1
-        if counter != len(links):
-            webhook = Webhook.from_url(webhook_url, adapter=RequestsWebhookAdapter())
-            embed = Embed(
-                color = 0x0000ff,
-                title= f"Bot Was runned and found {len(links) - counter} classes."
-                )
-            embed.add_field(name="For", value=username)
-            webhook.send(content= content, embed=embed)
-    
+
     for link in links:
         driver.get(link)
         sleep(5)
@@ -79,6 +64,15 @@ for credss in creds["creds"]:
         log_to_pass = {"id":username, "date": todays_date, "class": class_name}
         if log_to_pass in old_logs["logs"]:
             continue
+        if not message_sent:
+            webhook = Webhook.from_url(webhook_url, adapter=RequestsWebhookAdapter())
+            embed = Embed(
+                color = 0x0000ff,
+                title= f"Bot Was runned and found {len(links) - counter} classes."
+                )
+            embed.add_field(name="For", value=username)
+            webhook.send(content= content, embed=embed)
+            message_sent = True
 
         try:
             submit_btn = driver.find_element_by_xpath("// a[contains(text(),'Submit attendance')]")
@@ -113,6 +107,7 @@ for credss in creds["creds"]:
     # Log out now to move on to another account
     driver.get(f"{base_link}/login/logout.php")
     driver.find_element_by_class_name("btn-primary").click()
+    message_sent = False
 
 
 with open("logs.json", "w+") as f:
