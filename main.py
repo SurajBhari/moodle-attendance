@@ -25,10 +25,14 @@ driver = webdriver.Firefox(options=options)
 def sleep(time:int):
     pass
 """
+initial_stuff = creds["creds"][0]
 
 todays_date_obj = datetime.datetime.now().date()
 todays_date = todays_date_obj.strftime("%Y,%m,%d")
 
+webhook = Webhook.from_url(initial_stuff["webhook_url"], adapter=RequestsWebhookAdapter())
+embed = Embed(color = 0xff00ff, title= f"Script was runned")
+webhook.send(embed=embed)
 
 for credss in creds["creds"]:
     username = credss["username"]
