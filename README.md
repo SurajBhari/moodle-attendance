@@ -26,4 +26,8 @@ If you don't have discord or other platform or just don't care to get the messag
 3. Run main.py
 
 # IN USE
-<coming soon>
+never came, cuz by the time i decided to make the in use video for repos. our online classes were over. but here are some screenshots
+![image](https://user-images.githubusercontent.com/45149585/167004116-6e51b9a5-ca4e-4c8a-9a3e-3a6de39726b9.png)
+![image](https://user-images.githubusercontent.com/45149585/167004260-83250ebd-b9fa-4267-bdab-10d6e4629046.png)
+
+
